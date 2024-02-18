@@ -14,7 +14,10 @@ export async function loader() {
     slug: 'timeline',
   });
 
-  return json({ timeline });
+  return json(
+    { timeline },
+    { headers: { 'Cache-Control': 'max-age=1, stale-while-revalidate=59' } },
+  );
 }
 
 export default function Timeline() {

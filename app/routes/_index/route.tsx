@@ -22,7 +22,10 @@ export const meta: MetaFunction = () => {
 export const loader = async () => {
   const home = await client.fetch<SanityPageWithBuilder>(homeQuery);
 
-  return json({ home });
+  return json(
+    { home },
+    { headers: { 'Cache-Control': 'max-age=1, stale-while-revalidate=59' } },
+  );
 };
 
 export default function Index() {
