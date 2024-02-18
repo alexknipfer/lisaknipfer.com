@@ -25,7 +25,7 @@ export const loader = async () => {
   return json(
     { home },
     {
-      headers: { 'Cache-Control': 'max-age=36000' },
+      headers: { 'Cache-Control': 's-maxage=1, stale-while-revalidate=59' },
     },
   );
 };
