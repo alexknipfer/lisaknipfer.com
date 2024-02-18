@@ -16,7 +16,9 @@ export async function loader() {
 
   return json(
     { timeline },
-    { headers: { 'Cache-Control': 'max-age=1, stale-while-revalidate=59' } },
+    {
+      headers: { 'Cache-Control': 'max-age=36000' },
+    },
   );
 }
 
