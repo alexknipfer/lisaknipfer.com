@@ -26,6 +26,13 @@ module.exports = {
   overrides: [
     // React
     {
+      rules: {
+        "react/prop-types": "off",
+        "react/no-unknown-property": [
+          "error",
+          { ignore: ["vaul-drawer-wrapper"] },
+        ],
+      },
       files: ["**/*.{js,jsx,ts,tsx}"],
       plugins: ["react", "jsx-a11y"],
       extends: [
