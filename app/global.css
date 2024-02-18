@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Geist';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: optional;
+    src: url(/assets/fonts/GeistVariableVF.woff2) format('woff2');
+  }
+
+  html,
+  body {
+    @apply bg-white;
+    @apply min-h-screen;
+  }
+
+  html {
+    @apply overflow-hidden scroll-smooth antialiased;
+    text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply font-sans text-base text-gray-900;
+  }
+}

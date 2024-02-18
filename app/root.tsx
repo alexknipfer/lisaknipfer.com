@@ -1,5 +1,5 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
+import { cssBundleHref } from '@remix-run/css-bundle';
+import type { LinksFunction } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -7,13 +7,47 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
+  useLoaderData,
+} from '@remix-run/react';
+import { json } from '@remix-run/node';
+
+import Sidebar from './components/sidebar';
+import { client } from './sanity/client';
+import { Settings } from './types/sanity';
+import { settingsQuery } from './sanity/queries';
+import { ScrollView } from './components/scroll-view';
+import { Header } from './components/header';
+
+import styles from './global.css';
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  { rel: 'stylesheet', href: styles },
+  {
+    rel: 'preload',
+    href: '/assets/fonts/GeistVariableVF.woff2',
+    as: 'font',
+    type: 'font/woff2',
+    crossOrigin: 'anonymous',
+  },
+  ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ];
 
+export const loader = async () => {
+  const settings = await client.fetch<Settings>(settingsQuery);
+
+  return json({
+    ENV: {
+      SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
+      SANITY_DATASET: process.env.SANITY_DATASET,
+      SANITY_API_VERSION: process.env.SANITY_API_VERSION,
+    },
+    settings,
+  });
+};
+
 export default function App() {
+  const { ENV, settings } = useLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>
@@ -23,8 +57,21 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <main vaul-drawer-wrapper="">
+          <div className="flex bg-white">
+            <Sidebar settings={settings} />
+            <ScrollView>
+              <Header settings={settings} />
+              <Outlet />
+            </ScrollView>
+          </div>
+        </main>
         <ScrollRestoration />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(ENV)}`,
+          }}
+        />
         <Scripts />
         <LiveReload />
       </body>
