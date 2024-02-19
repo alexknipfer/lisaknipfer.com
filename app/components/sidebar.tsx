@@ -9,14 +9,7 @@ interface Props {
   settings: Settings;
 }
 
-// export const loader = async () => {
-//   const data = await client.fetch<Settings>(settingsQuery);
-
-//   return json({ data });
-// };
-
 export default function Sidebar({ settings }: Props) {
-  // const { data } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { cssBundleHref } from '@remix-run/css-bundle';
 import type { LinksFunction } from '@remix-run/node';
+import { json } from '@remix-run/node';
 import {
   Links,
   LiveReload,
@@ -9,7 +10,6 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from '@remix-run/react';
-import { json } from '@remix-run/node';
 
 import Sidebar from './components/sidebar';
 import { client } from './sanity/client';
@@ -17,7 +17,7 @@ import { Settings } from './types/sanity';
 import { settingsQuery } from './sanity/queries';
 import { ScrollView } from './components/scroll-view';
 import { Header } from './components/header';
-
+import { ENV } from './lib/env';
 import styles from './global.css';
 
 export const links: LinksFunction = () => [
@@ -37,9 +37,9 @@ export const loader = async () => {
 
   return json({
     ENV: {
-      SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
-      SANITY_DATASET: process.env.SANITY_DATASET,
-      SANITY_API_VERSION: process.env.SANITY_API_VERSION,
+      SANITY_PROJECT_ID: ENV.sanity.projectId,
+      SANITY_DATASET: ENV.sanity.dataset,
+      SANITY_API_VERSION: ENV.sanity.apiVersion,
     },
     settings,
   });
