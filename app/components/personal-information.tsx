@@ -22,7 +22,7 @@ export function PersonalInformation({ content }: Props) {
               components={{
                 listItem: {
                   bullet: ({ children }) => (
-                    <li className="list-inside list-disc">{children}</li>
+                    <li className="list-disc">{children}</li>
                   ),
                 },
               }}
