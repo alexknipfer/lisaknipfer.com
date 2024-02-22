@@ -58,7 +58,7 @@ export default function App() {
       </head>
       <body>
         <main>
-          <div className="flex bg-white">
+          <div className=" bg-white">
             <Sidebar settings={settings} />
             <div>
               <Header settings={settings} />
