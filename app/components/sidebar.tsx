@@ -31,7 +31,7 @@ export default function Sidebar({ settings }: Props) {
   }, [navigate]);
 
   return (
-    <div className="hidden w-60 shrink-0 border-r border-zinc-200 bg-zinc-50 p-3 text-sm lg:block xl:w-72">
+    <div className="left-0 top-0 hidden h-dvh w-60 shrink-0 self-start border-r border-zinc-200 bg-zinc-50 p-3 text-sm lg:fixed lg:block xl:w-72">
       <MenuContent settings={settings} />
     </div>
   );

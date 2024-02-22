@@ -15,7 +15,6 @@ import Sidebar from './components/sidebar';
 import { client } from './sanity/client';
 import { Settings } from './types/sanity';
 import { settingsQuery } from './sanity/queries';
-import { ScrollView } from './components/scroll-view';
 import { Header } from './components/header';
 import { ENV } from './lib/env';
 import styles from './global.css';
@@ -60,10 +59,10 @@ export default function App() {
         <main vaul-drawer-wrapper="">
           <div className="flex bg-white">
             <Sidebar settings={settings} />
-            <ScrollView>
+            <div>
               <Header settings={settings} />
               <Outlet />
-            </ScrollView>
+            </div>
           </div>
         </main>
         <ScrollRestoration />
