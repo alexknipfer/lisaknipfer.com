@@ -1,6 +1,8 @@
 import { AlignLeft } from 'lucide-react';
+import { useState } from 'react';
 
 import { Settings } from '~/types/sanity';
+
 import { Button } from './ui/button';
 import { Drawer, DrawerContent, DrawerTrigger } from './ui/drawer';
 import { MenuContent } from './menu-content';
@@ -10,8 +12,10 @@ interface Props {
 }
 
 export function MobileDrawer({ settings }: Props) {
+  const [isOpen, setOpen] = useState(false);
+
   return (
-    <Drawer shouldScaleBackground>
+    <Drawer shouldScaleBackground open={isOpen} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button
           variant="ghost"
@@ -23,7 +27,11 @@ export function MobileDrawer({ settings }: Props) {
       </DrawerTrigger>
       <DrawerContent className="h-[70%]">
         <div className="overflow-y-auto p-2 md:p-4">
-          <MenuContent showHotkeys={false} settings={settings} />
+          <MenuContent
+            showHotkeys={false}
+            settings={settings}
+            onNavigate={() => setOpen(false)}
+          />
         </div>
       </DrawerContent>
     </Drawer>

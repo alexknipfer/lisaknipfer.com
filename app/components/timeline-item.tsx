@@ -3,10 +3,12 @@ import { TimelineItem as SanityTimelineItem } from '~/types/sanity';
 
 interface Props {
   timelineItem: SanityTimelineItem;
+  isPriorityImage: boolean;
 }
 
 export function TimelineItem({
   timelineItem: { name, description, image },
+  isPriorityImage,
 }: Props) {
   return (
     <div className="flex-grow pl-4 md:pl-8">
@@ -20,7 +22,8 @@ export function TimelineItem({
             width={image.asset.metadata.dimensions.width}
             height={image.asset.metadata.dimensions.height}
             alt={name}
-            loading="lazy"
+            loading={isPriorityImage ? 'eager' : 'lazy'}
+            fetchpriority={isPriorityImage ? 'high' : 'auto'}
           />
         </div>
       )}

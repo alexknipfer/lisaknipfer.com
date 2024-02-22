@@ -7,11 +7,16 @@ import { menuRoutes } from '~/lib/route-config';
 import { cn } from '~/lib/utils';
 
 interface Props {
-  showHotkeys?: boolean;
   settings: Settings;
+  showHotkeys?: boolean;
+  onNavigate?: () => void;
 }
 
-export function MenuContent({ settings, showHotkeys = true }: Props) {
+export function MenuContent({
+  settings,
+  showHotkeys = true,
+  onNavigate,
+}: Props) {
   const { pathname } = useLocation();
 
   return (
@@ -39,6 +44,7 @@ export function MenuContent({ settings, showHotkeys = true }: Props) {
               <Link
                 key={template}
                 to={template}
+                onClick={() => onNavigate?.()}
                 className={cn(
                   'flex items-center justify-between rounded-lg p-2 text-pink-800 transition duration-200',
                   {
