@@ -16,7 +16,7 @@ export function TimelineItem({
         <div className="mt-2 overflow-hidden rounded-xl">
           <img
             className="animate-reveal"
-            src={imageBuilder.image(image).width(560).auto('format').url()}
+            src={imageBuilder.image(image).auto('format').url()}
             width={image.asset.metadata.dimensions.width}
             height={image.asset.metadata.dimensions.height}
             alt={name}
