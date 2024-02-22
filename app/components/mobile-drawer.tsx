@@ -15,7 +15,7 @@ export function MobileDrawer({ settings }: Props) {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <Drawer shouldScaleBackground open={isOpen} onOpenChange={setOpen}>
+    <Drawer open={isOpen} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button
           variant="ghost"

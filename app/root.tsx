@@ -57,7 +57,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <main vaul-drawer-wrapper="">
+        <main>
           <div className="flex bg-white">
             <Sidebar settings={settings} />
             <div>
