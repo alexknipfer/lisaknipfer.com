@@ -57,9 +57,9 @@ export default function App() {
       </head>
       <body>
         <main>
-          <div className="flex bg-white" vaul-drawer-wrapper="">
+          <div className="flex bg-white">
             <Sidebar settings={settings} />
-            <div>
+            <div vaul-drawer-wrapper="">
               <Header settings={settings} />
               <Outlet />
             </div>
