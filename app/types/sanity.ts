@@ -80,6 +80,7 @@ export interface SanityImage {
   asset: {
     url: string;
     metadata: SanityImageMetadata;
+    altText: string | null;
   };
 }
 

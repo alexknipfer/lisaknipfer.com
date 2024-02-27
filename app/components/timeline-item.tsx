@@ -21,7 +21,7 @@ export function TimelineItem({
             src={imageBuilder.image(image).auto('format').url()}
             width={image.asset.metadata.dimensions.width}
             height={image.asset.metadata.dimensions.height}
-            alt={name}
+            alt={image.asset.altText || ''}
             loading={isPriorityImage ? 'eager' : 'lazy'}
             fetchpriority={isPriorityImage ? 'high' : 'auto'}
           />
