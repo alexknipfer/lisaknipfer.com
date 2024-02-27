@@ -20,7 +20,8 @@ const pageBuilderQuery = groq`
           image {
             asset->{
               url,
-              metadata
+              metadata,
+              altText
             }
           }
         }
