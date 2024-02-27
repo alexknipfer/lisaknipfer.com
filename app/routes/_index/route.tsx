@@ -1,4 +1,4 @@
-import type { HeadersFunction, MetaFunction } from '@remix-run/node';
+import type { HeadersArgs, MetaFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { json } from '@remix-run/node';
 
@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = async () => {
+export async function loader() {
   const home = await client.fetch<SanityPageWithBuilder>(homeQuery);
 
   return json(
@@ -28,12 +28,14 @@ export const loader = async () => {
       headers: getCacheControlHeaders(1, 59),
     },
   );
-};
+}
 
-export const headers: HeadersFunction = ({ loaderHeaders }) => ({
-  [HeaderName.CACHE_CONTROL]:
-    loaderHeaders.get(HeaderName.CACHE_CONTROL) || getCacheControl(),
-});
+export function headers({ loaderHeaders }: HeadersArgs) {
+  return {
+    [HeaderName.CACHE_CONTROL]:
+      loaderHeaders.get(HeaderName.CACHE_CONTROL) || getCacheControl(),
+  };
+}
 
 export default function Index() {
   const { home } = useLoaderData<typeof loader>();

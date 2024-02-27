@@ -1,5 +1,5 @@
 import { Await, useLoaderData } from '@remix-run/react';
-import { defer } from '@remix-run/node';
+import { LoaderFunctionArgs, defer } from '@remix-run/node';
 
 import { pageBySlugQuery } from '~/sanity/queries';
 import { SanityPageWithBuilder } from '~/types/sanity';
@@ -11,10 +11,10 @@ import { Suspense } from 'react';
 import { RecentlyPlayedTracks } from './recently-played-tracks';
 import { spotify } from '~/lib/spotify.server';
 
-export async function loader() {
+export async function loader({ request }: LoaderFunctionArgs) {
   const tracks = spotify.getRecentlyPlayed();
   const page = await client.fetch<SanityPageWithBuilder>(pageBySlugQuery, {
-    slug: 'tracks',
+    slug: new URL(request.url).pathname,
   });
 
   return defer({ page, tracks });
