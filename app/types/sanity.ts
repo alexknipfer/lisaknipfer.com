@@ -37,6 +37,12 @@ export interface SanityPage {
   sidebarOrder: number;
   sidebarIcon: keyof typeof dynamicIconImports;
   slug: string;
+  SEO: SanitySEO;
+}
+
+interface SanitySEO {
+  metaTitle: string;
+  metaDescription: string;
 }
 
 export interface PageDescriptionContent {
