@@ -43,13 +43,15 @@ export const settingsQuery = groq`
 export const homeQuery = groq`
   *[_type == 'home'][0] {
     title,
-    ${pageBuilderQuery}
+    ${pageBuilderQuery},
+    SEO
   }
 `;
 
 export const pageBySlugQuery = groq`
   *[_type == 'page' && slug.current == $slug][0] {
     title,
-    ${pageBuilderQuery}
+    ${pageBuilderQuery},
+    SEO
   }
 `;
