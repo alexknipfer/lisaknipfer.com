@@ -1,4 +1,4 @@
-import type { HeadersArgs, MetaFunction } from '@remix-run/node';
+import type { HeadersArgs, MetaArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { json } from '@remix-run/node';
 
@@ -12,22 +12,19 @@ import { PageBuilder } from '~/components/page-builder';
 import { getCacheControl, getCacheControlHeaders } from '~/lib/utils';
 import { HeaderName } from '~/types/header-name.enum';
 
-export const meta: MetaFunction = () => {
+export function meta({ data }: MetaArgs<typeof loader>) {
   return [
-    { title: 'New Remix App' },
-    { name: 'description', content: 'Welcome to Remix!' },
+    { title: data?.SEO.metaTitle },
+    { name: 'description', content: data?.SEO.metaDescription },
   ];
-};
+}
 
 export async function loader() {
   const home = await client.fetch<SanityPageWithBuilder>(homeQuery);
 
-  return json(
-    { home },
-    {
-      headers: getCacheControlHeaders(1, 59),
-    },
-  );
+  return json(home, {
+    headers: getCacheControlHeaders(1, 59),
+  });
 }
 
 export function headers({ loaderHeaders }: HeadersArgs) {
@@ -38,7 +35,7 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 }
 
 export default function Index() {
-  const { home } = useLoaderData<typeof loader>();
+  const home = useLoaderData<typeof loader>();
 
   return (
     <PageWrapper>

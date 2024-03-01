@@ -1,5 +1,10 @@
 import { useLoaderData } from '@remix-run/react';
-import { HeadersArgs, LoaderFunctionArgs, json } from '@remix-run/node';
+import {
+  HeadersArgs,
+  LoaderFunctionArgs,
+  MetaArgs,
+  json,
+} from '@remix-run/node';
 
 import { pageBySlugQuery } from '~/sanity/queries';
 import { SanityPageWithBuilder } from '~/types/sanity';
@@ -11,17 +16,21 @@ import { PageBuilder } from '~/components/page-builder';
 import { getCacheControl, getCacheControlHeaders } from '~/lib/utils';
 import { HeaderName } from '~/types/header-name.enum';
 
+export function meta({ data }: MetaArgs<typeof loader>) {
+  return [
+    { title: data?.SEO.metaTitle },
+    { name: 'description', content: data?.SEO.metaDescription },
+  ];
+}
+
 export async function loader({ request }: LoaderFunctionArgs) {
   const timeline = await client.fetch<SanityPageWithBuilder>(pageBySlugQuery, {
     slug: new URL(request.url).pathname,
   });
 
-  return json(
-    { timeline },
-    {
-      headers: getCacheControlHeaders(),
-    },
-  );
+  return json(timeline, {
+    headers: getCacheControlHeaders(),
+  });
 }
 
 export function headers({ loaderHeaders }: HeadersArgs) {
@@ -32,7 +41,7 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 }
 
 export default function Timeline() {
-  const { timeline } = useLoaderData<typeof loader>();
+  const timeline = useLoaderData<typeof loader>();
 
   return (
     <PageWrapper>

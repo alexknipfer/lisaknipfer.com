@@ -1,5 +1,5 @@
 import { Await, useLoaderData } from '@remix-run/react';
-import { LoaderFunctionArgs, defer } from '@remix-run/node';
+import { LoaderFunctionArgs, MetaArgs, defer } from '@remix-run/node';
 
 import { pageBySlugQuery } from '~/sanity/queries';
 import { SanityPageWithBuilder } from '~/types/sanity';
@@ -10,6 +10,13 @@ import { PageContent } from '~/components/page-content';
 import { Suspense } from 'react';
 import { RecentlyPlayedTracks } from './recently-played-tracks';
 import { spotify } from '~/lib/spotify.server';
+
+export function meta({ data }: MetaArgs<typeof loader>) {
+  return [
+    { title: data?.page.SEO.metaTitle },
+    { name: 'description', content: data?.page.SEO.metaDescription },
+  ];
+}
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const tracks = spotify.getRecentlyPlayed();
