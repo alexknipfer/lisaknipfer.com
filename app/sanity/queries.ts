@@ -55,3 +55,10 @@ export const pageBySlugQuery = groq`
     SEO
   }
 `;
+
+export const getPageSlugsAndTitlesQuery = groq`
+  *[_type == 'page' || _type == 'home'] {
+    "slug": slug.current,
+    title
+  }
+`;
