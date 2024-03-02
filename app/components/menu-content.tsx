@@ -24,6 +24,7 @@ export function MenuContent({
       <Link
         to="/"
         className="mb-3 flex gap-3 rounded p-2 transition-colors duration-200 hover:bg-pink-100"
+        prefetch="intent"
       >
         <Avatar>
           <AvatarImage src="/assets/avatar.jpg" />
@@ -45,6 +46,7 @@ export function MenuContent({
                 key={template}
                 to={template}
                 onClick={() => onNavigate?.()}
+                prefetch="intent"
                 className={cn(
                   'flex items-center justify-between rounded-lg p-2 text-pink-800 transition duration-200',
                   {
