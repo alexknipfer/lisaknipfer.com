@@ -40,6 +40,8 @@ export interface SanityPage {
   SEO: SanitySEO;
 }
 
+export type SanityPageSlugAndTitle = Pick<SanityPage, 'title' | 'slug'>;
+
 interface SanitySEO {
   metaTitle: string;
   metaDescription: string;

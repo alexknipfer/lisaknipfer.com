@@ -13,8 +13,8 @@ import {
 
 import Sidebar from './components/sidebar';
 import { client } from './sanity/client';
-import { Settings } from './types/sanity';
-import { settingsQuery } from './sanity/queries';
+import { SanityPageSlugAndTitle, Settings } from './types/sanity';
+import { getPageSlugsAndTitlesQuery, settingsQuery } from './sanity/queries';
 import { Header } from './components/header';
 import { ENV } from './lib/env';
 import styles from './global.css';
@@ -31,8 +31,11 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
 ];
 
-export const loader = async () => {
-  const settings = await client.fetch<Settings>(settingsQuery);
+export async function loader() {
+  const [settings, pageSlugsAndTitles] = await Promise.all([
+    client.fetch<Settings>(settingsQuery),
+    client.fetch<Array<SanityPageSlugAndTitle>>(getPageSlugsAndTitlesQuery),
+  ]);
 
   return json({
     ENV: {
@@ -41,11 +44,12 @@ export const loader = async () => {
       SANITY_API_VERSION: ENV.sanity.apiVersion,
     },
     settings,
+    pageSlugsAndTitles,
   });
-};
+}
 
 export default function App() {
-  const { ENV, settings } = useLoaderData<typeof loader>();
+  const { ENV, settings, pageSlugsAndTitles } = useLoaderData<typeof loader>();
 
   return (
     <html lang="en">
@@ -61,7 +65,10 @@ export default function App() {
           <div className=" bg-white">
             <Sidebar settings={settings} />
             <div>
-              <Header settings={settings} />
+              <Header
+                settings={settings}
+                pageSlugsAndTitles={pageSlugsAndTitles}
+              />
               <Outlet />
             </div>
           </div>
