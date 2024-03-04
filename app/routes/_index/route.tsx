@@ -1,4 +1,4 @@
-import type { HeadersArgs, MetaArgs } from '@remix-run/node';
+import type { HeadersArgs, MetaFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { json } from '@remix-run/node';
 
@@ -9,15 +9,15 @@ import { PageWrapper } from '~/components/page-wrapper';
 import { Heading } from '~/components/heading';
 import { PageContent } from '~/components/page-content';
 import { PageBuilder } from '~/components/page-builder';
-import { getCacheControl, getCacheControlHeaders } from '~/lib/utils';
+import {
+  getCacheControl,
+  getCacheControlHeaders,
+  getCommonPageMeta,
+} from '~/lib/utils';
 import { HeaderName } from '~/types/header-name.enum';
 
-export function meta({ data }: MetaArgs<typeof loader>) {
-  return [
-    { title: data?.SEO.metaTitle },
-    { name: 'description', content: data?.SEO.metaDescription },
-  ];
-}
+export const meta: MetaFunction<typeof loader> = ({ data }) =>
+  getCommonPageMeta(data);
 
 export async function loader() {
   const home = await client.fetch<SanityPageWithBuilder>(homeQuery);
