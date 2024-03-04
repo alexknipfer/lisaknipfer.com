@@ -13,7 +13,7 @@ import { spotify } from '~/lib/spotify.server';
 
 export function meta({ data }: MetaArgs<typeof loader>) {
   return [
-    { title: data?.page.SEO.metaTitle },
+    { title: `${data?.page.SEO.metaTitle} | Lisa Knipfer` },
     { name: 'description', content: data?.page.SEO.metaDescription },
   ];
 }

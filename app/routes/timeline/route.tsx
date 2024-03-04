@@ -18,7 +18,7 @@ import { HeaderName } from '~/types/header-name.enum';
 
 export function meta({ data }: MetaArgs<typeof loader>) {
   return [
-    { title: data?.SEO.metaTitle },
+    { title: `${data?.SEO.metaTitle} | Lisa Knipfer` },
     { name: 'description', content: data?.SEO.metaDescription },
   ];
 }
