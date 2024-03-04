@@ -42,7 +42,9 @@ export function OpenGraphImage() {
             Lisa Knipfer
           </span>
         </div>
-        This is a test description of a page.
+        <span style={{ fontSize: '2rem' }}>
+          This is a test description of a page.
+        </span>
       </span>
     </div>
   );
