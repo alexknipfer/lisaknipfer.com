@@ -12,8 +12,8 @@ import { RecentlyPlayedTracks } from './recently-played-tracks';
 import { spotify } from '~/lib/spotify.server';
 import { getCommonPageMeta } from '~/lib/utils';
 
-export const meta: MetaFunction<typeof loader> = ({ data, location }) =>
-  getCommonPageMeta(data?.page, location.pathname);
+export const meta: MetaFunction<typeof loader> = ({ data }) =>
+  getCommonPageMeta(data?.page);
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const tracks = spotify.getRecentlyPlayed();

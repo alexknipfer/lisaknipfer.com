@@ -1,10 +1,9 @@
 interface Props {
   title: string;
   description: string | null;
-  url: string;
 }
 
-export function OpenGraphImage({ title, description, url }: Props) {
+export function OpenGraphImage({ title, description }: Props) {
   return (
     <div
       style={{
@@ -13,22 +12,10 @@ export function OpenGraphImage({ title, description, url }: Props) {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         padding: 60,
       }}
     >
-      <div
-        style={{
-          fontSize: '2.5rem',
-          lineHeight: 1,
-          backgroundColor: '#db2777',
-          color: '#fff',
-          padding: '1rem 1.75rem',
-          borderRadius: 9999,
-        }}
-      >
-        {url}
-      </div>
       <div
         style={{
           position: 'absolute',
