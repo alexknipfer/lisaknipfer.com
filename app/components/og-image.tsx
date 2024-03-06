@@ -12,18 +12,16 @@ export function OpenGraphImage({ title, description, url }: Props) {
         width: '100%',
         height: '100%',
         display: 'flex',
-        position: 'relative',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         padding: 60,
       }}
     >
       <div
         style={{
-          position: 'absolute',
-          top: 60,
-          left: 60,
           fontSize: '2.5rem',
           lineHeight: 1,
-          backgroundColor: '#be185d',
+          backgroundColor: '#db2777',
           color: '#fff',
           padding: '1rem 1.75rem',
           borderRadius: 9999,
@@ -47,9 +45,6 @@ export function OpenGraphImage({ title, description, url }: Props) {
           display: 'flex',
           flexDirection: 'column',
           gap: '0.5rem',
-          position: 'absolute',
-          bottom: 100,
-          left: 60,
           width: '80%',
         }}
       >
