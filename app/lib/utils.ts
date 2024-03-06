@@ -27,21 +27,33 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-function buildOGImageUrl(metaName: string, metaDescription: string) {
+function buildOGImageUrl(
+  metaName: string,
+  metaDescription: string,
+  pathname: string,
+) {
   const url = new URL('/static/og', ENV.baseUrl);
   url.searchParams.set('title', metaName);
   url.searchParams.set('description', metaDescription);
+  const requestedUrl = new URL(pathname, ENV.baseUrl);
+  url.searchParams.set(
+    'requestedUrl',
+    `${requestedUrl.hostname}${requestedUrl.pathname}`,
+  );
 
   return url.toString();
 }
 
-export function getCommonPageMeta(data: SanityPageWithBuilder | undefined) {
+export function getCommonPageMeta(
+  data: SanityPageWithBuilder | undefined,
+  pathname: string,
+) {
   if (!data) {
     return [{ title: 'Lisa Knipfer' }];
   }
 
   const titleElements = [
-    { title: data.SEO.metaTitle },
+    { title: `${data.SEO.metaTitle} | Lisa Knipfer}` },
     {
       name: 'twitter:title',
       content: data.SEO.metaTitle,
@@ -67,11 +79,19 @@ export function getCommonPageMeta(data: SanityPageWithBuilder | undefined) {
   const imageElements = [
     {
       name: 'twitter:image',
-      content: buildOGImageUrl(data.SEO.metaTitle, data.SEO.metaDescription),
+      content: buildOGImageUrl(
+        data.SEO.metaTitle,
+        data.SEO.metaDescription,
+        pathname,
+      ),
     },
     {
       property: 'og:image',
-      content: buildOGImageUrl(data.SEO.metaTitle, data.SEO.metaDescription),
+      content: buildOGImageUrl(
+        data.SEO.metaTitle,
+        data.SEO.metaDescription,
+        pathname,
+      ),
     },
     {
       property: 'twitter:card',

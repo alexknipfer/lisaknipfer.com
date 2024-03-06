@@ -1,4 +1,10 @@
-export function OpenGraphImage() {
+interface Props {
+  title: string;
+  description: string | null;
+  url: string;
+}
+
+export function OpenGraphImage({ title, description, url }: Props) {
   return (
     <div
       style={{
@@ -7,8 +13,24 @@ export function OpenGraphImage() {
         height: '100%',
         display: 'flex',
         position: 'relative',
+        padding: 60,
       }}
     >
+      <div
+        style={{
+          position: 'absolute',
+          top: 60,
+          left: 60,
+          fontSize: '2.5rem',
+          lineHeight: 1,
+          backgroundColor: '#be185d',
+          color: '#fff',
+          padding: '1rem 1.75rem',
+          borderRadius: 9999,
+        }}
+      >
+        {url}
+      </div>
       <div
         style={{
           position: 'absolute',
@@ -31,20 +53,19 @@ export function OpenGraphImage() {
           width: '80%',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
           <span
             style={{
               fontSize: '5.25rem',
               lineHeight: 1,
               fontWeight: 600,
+              color: '#be185d',
             }}
           >
-            Lisa Knipfer
+            {title}
           </span>
         </div>
-        <span style={{ fontSize: '2rem' }}>
-          This is a test description of a page.
-        </span>
+        {description && <span style={{ fontSize: '2rem' }}>{description}</span>}
       </span>
     </div>
   );
