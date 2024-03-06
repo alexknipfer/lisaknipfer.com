@@ -4,7 +4,7 @@ declare global {
       SANITY_PROJECT_ID: string;
       SANITY_DATASET: string;
       SANITY_API_VERSION: string;
-      BASE_URL: string;
+      VERCEL_URL: string;
     };
   }
 }
@@ -21,7 +21,7 @@ function loadBrowserEnvironmentVariable(key: keyof Window['ENV']): string {
 }
 
 export const ENV = {
-  baseUrl: loadBrowserEnvironmentVariable('BASE_URL'),
+  baseUrl: loadBrowserEnvironmentVariable('VERCEL_URL'),
   sanity: {
     projectId: loadBrowserEnvironmentVariable('SANITY_PROJECT_ID'),
     dataset: loadBrowserEnvironmentVariable('SANITY_DATASET'),

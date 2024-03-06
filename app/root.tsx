@@ -42,7 +42,7 @@ export async function loader() {
       SANITY_PROJECT_ID: ENV.sanity.projectId,
       SANITY_DATASET: ENV.sanity.dataset,
       SANITY_API_VERSION: ENV.sanity.apiVersion,
-      BASE_URL: ENV.baseUrl,
+      VERCEL_URL: ENV.baseUrl,
     },
     settings,
     pageSlugsAndTitles,
