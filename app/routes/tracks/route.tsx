@@ -1,5 +1,10 @@
 import { Await, useLoaderData } from '@remix-run/react';
-import { LoaderFunctionArgs, MetaFunction, defer } from '@remix-run/node';
+import {
+  HeadersArgs,
+  LoaderFunctionArgs,
+  MetaFunction,
+  defer,
+} from '@remix-run/node';
 
 import { pageBySlugQuery } from '~/sanity/queries';
 import { SanityPageWithBuilder } from '~/types/sanity';
@@ -10,7 +15,12 @@ import { PageContent } from '~/components/page-content';
 import { Suspense } from 'react';
 import { RecentlyPlayedTracks } from './recently-played-tracks';
 import { spotify } from '~/lib/spotify.server';
-import { getCommonPageMeta } from '~/lib/utils';
+import {
+  getCacheControl,
+  getCacheControlHeaders,
+  getCommonPageMeta,
+} from '~/lib/utils';
+import { HeaderName } from '~/types/header-name.enum';
 
 export const meta: MetaFunction<typeof loader> = ({ data }) =>
   getCommonPageMeta(data?.page);
@@ -21,7 +31,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
     slug: new URL(request.url).pathname,
   });
 
-  return defer({ page, tracks });
+  return defer({ page, tracks }, { headers: getCacheControlHeaders() });
+}
+
+export function headers({ loaderHeaders }: HeadersArgs) {
+  return {
+    [HeaderName.CACHE_CONTROL]:
+      loaderHeaders.get(HeaderName.CACHE_CONTROL) || getCacheControl(),
+  };
 }
 
 export default function Timeline() {
