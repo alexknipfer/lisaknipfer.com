@@ -44,7 +44,7 @@ export function OpenGraphImage({ title, description, url }: Props) {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '0.5rem',
+          gap: '1.5rem',
           width: '80%',
         }}
       >
