@@ -27,6 +27,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+function buildOGImageUrl(metaName: string, metaDescription: string) {
+  const url = new URL('/static/og', ENV.baseUrl);
+  url.searchParams.set('title', metaName);
+  url.searchParams.set('description', metaDescription);
+
+  return url.toString();
+}
+
 export function getCommonPageMeta(data: SanityPageWithBuilder | undefined) {
   if (!data) {
     return [{ title: 'Lisa Knipfer' }];
@@ -59,11 +67,11 @@ export function getCommonPageMeta(data: SanityPageWithBuilder | undefined) {
   const imageElements = [
     {
       name: 'twitter:image',
-      content: `${ENV.baseUrl}/static/og`,
+      content: buildOGImageUrl(data.SEO.metaTitle, data.SEO.metaDescription),
     },
     {
       property: 'og:image',
-      content: `${ENV.baseUrl}/static/og`,
+      content: buildOGImageUrl(data.SEO.metaTitle, data.SEO.metaDescription),
     },
     {
       property: 'twitter:card',
