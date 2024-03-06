@@ -16,14 +16,14 @@ import {
 } from '~/lib/utils';
 import { HeaderName } from '~/types/header-name.enum';
 
-export const meta: MetaFunction<typeof loader> = ({ data }) =>
-  getCommonPageMeta(data);
+export const meta: MetaFunction<typeof loader> = ({ data, location }) =>
+  getCommonPageMeta(data, location.pathname);
 
 export async function loader() {
   const home = await client.fetch<SanityPageWithBuilder>(homeQuery);
 
   return json(home, {
-    headers: getCacheControlHeaders(1, 59),
+    headers: getCacheControlHeaders(),
   });
 }
 
