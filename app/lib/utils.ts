@@ -41,7 +41,7 @@ export function getCommonPageMeta(data: SanityPageWithBuilder | undefined) {
   }
 
   const titleElements = [
-    { title: `${data.SEO.metaTitle} | Lisa Knipfer}` },
+    { title: `${data.SEO.metaTitle} | Lisa Knipfer` },
     {
       name: 'twitter:title',
       content: data.SEO.metaTitle,
