@@ -21,7 +21,7 @@ function loadBrowserEnvironmentVariable(key: keyof Window['ENV']): string {
 }
 
 export const ENV = {
-  baseUrl: loadBrowserEnvironmentVariable('VERCEL_URL'),
+  baseUrl: `https://${loadBrowserEnvironmentVariable('VERCEL_URL')}`,
   sanity: {
     projectId: loadBrowserEnvironmentVariable('SANITY_PROJECT_ID'),
     dataset: loadBrowserEnvironmentVariable('SANITY_DATASET'),
