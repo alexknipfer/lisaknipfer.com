@@ -42,7 +42,6 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 
 export default function Timeline() {
   const timeline = useLoaderData<typeof loader>();
-  const test = 'hello';
 
   return (
     <PageWrapper>
